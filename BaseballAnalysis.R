@@ -124,6 +124,26 @@ ggplot(salaries.indians, aes(x = `Total Paid`, y = Wins)) + geom_point() + geom_
 # Well, this is certainly trending positively, but the correlation is definitely not strong whatsoever. Oh well, let's 
 # keep exploring and maybe we'll start to uncover some of baseball's strong causal relationships as we progress. 
 
+# Now let's see the total number of hall of famers the Indians have had on their teams throughout the years. To do this
+# we'll need to get the 'halloffame' data table
+hall.of.fame <- dbReadTable(baseball, "halloffame")
+hall.of.fame <- as.data.table(hall.of.fame)
+hall.of.fame
+
+
+
+# Now that we've learned a little about the Indians, let's turn our attention to the League as a whole. To do this, we're
+# going to revert back to our 'teams' data.table. Let's take a look at it again.
+str(teams)
+teams
+
+# Sense we're concerned with official MLB teams, let's narrow our focus of data.table to just teams whose 'lgID' is
+# either AL or NL (American or National League, respecitvely). 
+mlb.teams <- teams[lgID == "AL" | lgID == "NL"]
+
+# Now that we have our MLB teams, let's start doing some analysis! First, let's start by seeing what were the best
+# records in one season, by total wins.
+mlb.wins <- mlb.teams[, .(Wins = max(W)), by = yearID][order(-Wins)][1:10]
 
 
 
