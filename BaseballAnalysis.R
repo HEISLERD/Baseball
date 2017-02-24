@@ -9,7 +9,7 @@ library(DBI)
 
 baseball <- dbConnect(MySQL(),
                       user = 'davidheis',
-                      password = 'BASSIst23!',
+                      password = '',
                       dbname = 'baseball',
                       host = 'localhost')
 
